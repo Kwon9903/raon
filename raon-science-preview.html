@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>라온과학 | 즐겁게 배우는 과학</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;600;700;900&display=swap');
+
+:root {
+  --paper: #fffbf0;
+  --paper-soft: #fff3d0;
+  --paper-line: #ecdfb8;
+  --yellow: #ffc93c;
+  --yellow-deep: #f5a623;
+  --orange: #ef7f1a;
+  --ink: #2b2620;
+  --ink-soft: #726a58;
+  --white: #ffffff;
+  --shadow: 0 6px 0 rgba(43, 38, 32, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Noto Sans KR', sans-serif;
+  line-height: 1.6;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ---------- 공책 배경 ---------- */
+.notebook-bg {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 37px,
+    var(--paper-line) 38px
+  );
+}
+
+/* ---------- 헤더 ---------- */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(255, 251, 240, 0.92);
+  backdrop-filter: blur(6px);
+  border-bottom: 2px solid var(--ink);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+
+.logo {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 26px;
+  letter-spacing: -0.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo-mark {
+  display: inline-flex;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--yellow);
+  border: 2px solid var(--ink);
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.nav a {
+  text-decoration: none;
+}
+
+.nav-cta {
+  background: var(--ink);
+  color: var(--paper) !important;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+@media (max-width: 720px) {
+  .nav-links {
+    display: none;
+  }
+}
+
+/* ---------- 하이라이트 밑줄 ---------- */
+.highlight {
+  position: relative;
+  white-space: nowrap;
+}
+
+.highlight::after {
+  content: '';
+  position: absolute;
+  left: -4px;
+  right: -4px;
+  bottom: 2px;
+  height: 0.5em;
+  background: var(--yellow);
+  z-index: -1;
+  transform: rotate(-1deg);
+  border-radius: 3px;
+}
+
+/* ---------- 히어로 ---------- */
+.hero {
+  padding: 96px 0 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 40px;
+  align-items: center;
+}
+
+@media (max-width: 860px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--white);
+  border: 2px solid var(--ink);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  transform: rotate(-2deg);
+}
+
+.hero h1 {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 52px;
+  line-height: 1.3;
+  margin: 0 0 20px;
+  letter-spacing: -1px;
+}
+
+@media (max-width: 520px) {
+  .hero h1 {
+    font-size: 36px;
+  }
+}
+
+.hero p.lead {
+  font-size: 17px;
+  color: var(--ink-soft);
+  margin: 0 0 32px;
+  max-width: 440px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  padding: 14px 26px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.15s ease;
+}
+
+.btn:hover {
+  transform: translate(-2px, -2px);
+}
+
+.btn-primary {
+  background: var(--yellow);
+  color: var(--ink);
+  box-shadow: var(--shadow);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+}
+
+/* 노트 카드(스티키노트) */
+.sticky {
+  background: var(--white);
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  padding: 26px;
+  box-shadow: var(--shadow);
+}
+
+.hero-card {
+  position: relative;
+  transform: rotate(2deg);
+}
+
+.hero-card .pin {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--orange);
+  border: 2px solid var(--ink);
+}
+
+.hero-card ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+}
+
+.hero-card li {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-weight: 600;
+}
+
+.hero-card .num {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 28px;
+  color: var(--orange);
+  min-width: 64px;
+}
+
+.hero-card .num-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-soft);
+  display: block;
+}
+
+/* ---------- 섹션 공통 ---------- */
+.section {
+  padding: 88px 0;
+}
+
+.section-alt {
+  background: var(--paper-soft);
+  border-top: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+}
+
+.section-head {
+  text-align: center;
+  max-width: 560px;
+  margin: 0 auto 48px;
+}
+
+.section-head .eyebrow {
+  transform: none;
+}
+
+.section-head h2 {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 34px;
+  margin: 6px 0 12px;
+}
+
+.section-head p {
+  color: var(--ink-soft);
+  font-size: 15px;
+}
+
+/* ---------- 소개 카드 3개 ---------- */
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+@media (max-width: 800px) {
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.tilt-card {
+  background: var(--white);
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  padding: 28px;
+  box-shadow: var(--shadow);
+}
+
+.tilt-card:nth-child(1) {
+  transform: rotate(-1.5deg);
+}
+.tilt-card:nth-child(2) {
+  transform: rotate(1deg);
+}
+.tilt-card:nth-child(3) {
+  transform: rotate(-0.5deg);
+}
+
+.tilt-card .icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--yellow);
+  border: 2px solid var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin-bottom: 16px;
+}
+
+.tilt-card h3 {
+  font-size: 18px;
+  margin: 0 0 8px;
+}
+
+.tilt-card p {
+  font-size: 14px;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* ---------- 프로그램 ---------- */
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+@media (max-width: 900px) {
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 520px) {
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.program-card {
+  background: var(--white);
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.program-tag {
+  align-self: flex-start;
+  font-size: 12px;
+  font-weight: 700;
+  background: var(--paper-soft);
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+
+.program-card h3 {
+  margin: 0;
+  font-size: 17px;
+}
+
+.program-card p {
+  margin: 0;
+  font-size: 13.5px;
+  color: var(--ink-soft);
+}
+
+/* ---------- 통계 ---------- */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  text-align: center;
+}
+
+@media (max-width: 700px) {
+  .stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+.stat-num {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 44px;
+  color: var(--orange);
+}
+
+.stat-label {
+  font-size: 14px;
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+
+/* ---------- 신청 폼 ---------- */
+.form-wrap {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+@media (max-width: 860px) {
+  .form-wrap {
+    grid-template-columns: 1fr;
+  }
+}
+
+.form-card {
+  background: var(--white);
+  border: 2px solid var(--ink);
+  border-radius: 18px;
+  padding: 32px;
+  box-shadow: var(--shadow);
+}
+
+.field {
+  margin-bottom: 18px;
+}
+
+.field label {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.field .req {
+  color: var(--orange);
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 2px solid var(--paper-line);
+  border-radius: 10px;
+  font-size: 14.5px;
+  font-family: inherit;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--ink);
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+@media (max-width: 460px) {
+  .field-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.submit-btn {
+  width: 100%;
+  background: var(--yellow);
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  padding: 15px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.form-note {
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  margin-top: 12px;
+  text-align: center;
+}
+
+.status-msg {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.status-msg.success {
+  background: #eaf6e6;
+  border: 2px solid #2f7d3c;
+  color: #2f7d3c;
+}
+
+.status-msg.error {
+  background: #fdeaea;
+  border: 2px solid #c0392b;
+  color: #c0392b;
+}
+
+/* 폼 옆 안내 리스트 */
+.form-side h2 {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 30px;
+  margin: 6px 0 16px;
+}
+
+.form-side ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 16px;
+}
+
+.form-side li {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.form-side .check {
+  width: 26px;
+  height: 26px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--yellow);
+  border: 2px solid var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* ---------- 푸터 ---------- */
+.footer {
+  background: var(--ink);
+  color: var(--paper-soft);
+  padding: 48px 0 28px;
+}
+
+.footer .logo {
+  color: var(--paper);
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(255, 251, 240, 0.2);
+}
+
+.footer-info {
+  font-size: 13px;
+  line-height: 1.9;
+  opacity: 0.75;
+}
+
+.footer-bottom {
+  padding-top: 20px;
+  font-size: 12.5px;
+  opacity: 0.6;
+}
+
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="container header-inner">
+    <div class="logo"><span class="logo-mark">🔬</span>라온과학</div>
+    <nav class="nav">
+      <div class="nav-links" style="display:flex;gap:28px;">
+        <a href="#about">소개</a>
+        <a href="#programs">프로그램</a>
+        <a href="#stats">이야기</a>
+      </div>
+      <a href="#apply" class="nav-cta">무료 상담 신청</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero notebook-bg">
+    <div class="container hero-inner">
+      <div>
+        <span class="eyebrow">🟡 중·고등학생 과학 전문</span>
+        <h1>과학이 <span class="highlight">즐거워지는</span><br/>순간, 라온과학</h1>
+        <p class="lead">외우는 과학이 아니라 직접 실험하고 확인하는 과학. 라온과학은 중·고등학생의 눈높이에서 개념을 풀어드립니다.</p>
+        <div class="hero-actions">
+          <a href="#apply" class="btn btn-primary">상담 신청하기 →</a>
+          <a href="#programs" class="btn btn-ghost">프로그램 둘러보기</a>
+        </div>
+      </div>
+      <div class="hero-card sticky">
+        <span class="pin"></span>
+        <ul>
+          <li><span class="num">12</span><span>년째 이어온 과학 교육<span class="num-label">2013년 개원</span></span></li>
+          <li><span class="num">96%</span><span>수강생 만족도<span class="num-label">2025년 자체 설문</span></span></li>
+          <li><span class="num">1:6</span><span>평균 수업 인원<span class="num-label">소규모 밀착 관리</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">라온과학 소개</span>
+        <h2>왜 라온과학일까요?</h2>
+        <p>개념보다 먼저 손으로 확인하는 수업, 그리고 꾸준한 소통으로 만듭니다.</p>
+      </div>
+      <div class="grid-3">
+        <div class="tilt-card"><div class="icon">🧪</div><h3>실험 중심 커리큘럼</h3><p>모든 단원은 실험 또는 시연으로 시작해요. 눈으로 본 현상을 개념으로 연결합니다.</p></div>
+        <div class="tilt-card"><div class="icon">👩‍🏫</div><h3>전담 강사 매칭</h3><p>학생의 학교 진도와 성향에 맞춰 전담 강사를 배정하고, 학습 이력을 관리해요.</p></div>
+        <div class="tilt-card"><div class="icon">📋</div><h3>투명한 학습 리포트</h3><p>매 수업 후 학부모님께 리포트를 보내드려요. 무엇을 배웠는지 바로 확인하세요.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="programs" class="section section-alt notebook-bg">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">프로그램</span>
+        <h2>학년별 맞춤 과학 수업</h2>
+        <p>중등 통합과학부터 고등 물리·화학까지, 필요한 과목만 골라 들을 수 있어요.</p>
+      </div>
+      <div class="grid-4">
+        <div class="program-card"><span class="program-tag">중등</span><h3>중등 통합과학 탐구</h3><p>개념을 실험으로 먼저 만나고, 교과서로 정리하는 역순 학습 커리큘럼.</p></div>
+        <div class="program-card"><span class="program-tag">고등</span><h3>물리학 I · II</h3><p>역학·전자기부터 최신 개정 교육과정까지, 개념 흐름을 그림으로 정리.</p></div>
+        <div class="program-card"><span class="program-tag">고등</span><h3>화학 I · II</h3><p>몰 개념부터 반응 속도까지, 헷갈리는 단원만 골라 듣는 클리닉 방식.</p></div>
+        <div class="program-card"><span class="program-tag">특강</span><h3>주말 실험 랩</h3><p>한 달에 한 번, 학교에서 못 해본 실험을 직접 설계하고 기록하는 시간.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="stats" class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">라온과학의 이야기</span>
+        <h2>숫자로 보는 라온과학</h2>
+      </div>
+      <div class="stats">
+        <div><div class="stat-num">1,200+</div><div class="stat-label">누적 수강생</div></div>
+        <div><div class="stat-num">96%</div><div class="stat-label">재등록률</div></div>
+        <div><div class="stat-num">12년</div><div class="stat-label">과학 교육 노하우</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="apply" class="section section-alt notebook-bg">
+    <div class="container form-wrap">
+      <div class="form-side">
+        <span class="eyebrow">무료 상담 신청</span>
+        <h2>지금 신청하면<br/><span class="highlight">1영업일 이내</span> 연락드려요</h2>
+        <ul>
+          <li><span class="check">✓</span><span>중·고등 눈높이에 맞춘 전담 강사 배정</span></li>
+          <li><span class="check">✓</span><span>매 수업 후 학부모 리포트 발송</span></li>
+          <li><span class="check">✓</span><span>실험 중심 커리큘럼으로 개념 체화</span></li>
+          <li><span class="check">✓</span><span>상담 신청 후 1영업일 이내 연락</span></li>
+        </ul>
+      </div>
+      <div class="form-card">
+        <form id="applyForm">
+          <div class="field-row">
+            <div class="field"><label>이름 <span class="req">*</span></label><input type="text" placeholder="학생 이름" required/></div>
+            <div class="field"><label>학년</label>
+              <select>
+                <option value="">선택해주세요</option>
+                <option>중학교 1학년</option><option>중학교 2학년</option><option>중학교 3학년</option>
+                <option>고등학교 1학년</option><option>고등학교 2학년</option><option>고등학교 3학년</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label>연락처 <span class="req">*</span></label><input type="tel" placeholder="010-0000-0000" required/></div>
+            <div class="field"><label>이메일 <span class="req">*</span></label><input type="email" placeholder="example@email.com" required/></div>
+          </div>
+          <div class="field"><label>관심 과목</label><input type="text" placeholder="예: 통합과학, 화학 I"/></div>
+          <div class="field"><label>문의 내용</label><textarea rows="3" placeholder="궁금한 점을 남겨주세요"></textarea></div>
+          <button type="submit" class="submit-btn">무료 상담 신청하기</button>
+          <div id="statusMsg"></div>
+          <p class="form-note">입력하신 정보는 상담 목적으로만 사용되며, 별도 동의 없이 제3자에게 제공되지 않습니다.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="logo">🔬 라온과학</div>
+      <div class="footer-info">라온과학 · 과학교육 전문 브랜드<br/>중·고등학생을 위한 실험 중심 과학 수업<br/>문의: hello@raon-science.example</div>
+    </div>
+    <div class="footer-bottom">© 2026 라온과학. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('applyForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  var box = document.getElementById('statusMsg');
+  box.className = 'status-msg success';
+  box.style.display = 'block';
+  box.textContent = '(미리보기) 실제 배포본에서는 이 시점에 구글 시트에 저장됩니다.';
+  this.reset();
+});
+</script>
+
+</body>
+</html>
