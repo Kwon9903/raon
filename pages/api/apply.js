@@ -1,5 +1,6 @@
 import { GoogleSpreadsheet } from 'google-spreadsheet';
 import { JWT } from 'google-auth-library';
+import { sendApplicationSms } from '../../lib/sms';
 
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
 
@@ -65,7 +66,19 @@ export default async function handler(req, res) {
       문의내용: message || '',
     });
 
-    return res.status(200).json({ success: true });
+    // 구글시트 저장이 끝난 뒤 솔라피로 알림/확인 문자를 보냅니다.
+    // 문자 발송이 실패하더라도 신청(시트 저장) 자체는 이미 성공했으므로 에러를 던지지 않습니다.
+    const smsResult = await sendApplicationSms({ name, phone, grade, subject, message }).catch(
+      (err) => {
+        console.error('[apply] 문자 발송 중 예상치 못한 오류:', err);
+        return { skipped: true, error: err };
+      }
+    );
+
+    return res.status(200).json({
+      success: true,
+      smsSent: Boolean(smsResult && !smsResult.skipped && !smsResult.error),
+    });
   } catch (err) {
     console.error('[apply] Google Sheets 저장 실패:', err);
     return res.status(500).json({
